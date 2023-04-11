@@ -1,3 +1,35 @@
+//red color
+[BITS 16]
+[ORG 7C00h]
+jmp main
+main:
+xor ax, ax ; DS=0
+mov ds, ax
+cld ; DF=0
+mov ax, 0012h
+int 10h
+mov si, string
+mov bl, 4
+call printstr
+jmp $
+printstr:
+mov bh, 0
+print:
+lodsb
+cmp al, 0
+je done
+mov ah, 0Eh
+int 10h
+jmp print
+done:
+ret
+string db "Vedant Vatsa",13,10,0
+times 510 - ($-$$) db 0
+dw 0AA55h
+
+
+
+
 //Printing Nothing
 //Create a file boot.asm in your testing folder, where you will play with it.
 //Create it with the following code:
